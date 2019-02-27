@@ -1,0 +1,6 @@
+modprobe -r nfnetlink_queue
+modprobe  nfnetlink_queue
+iptables -A FORWARD -j NFQUEUE --queue-num 0
+iptables -A INPUT -j NFQUEUE --queue-num 0
+iptables -A OUTPUT -j NFQUEUE --queue-num 0
+snort -Q --daq nfq --daq-var queue=0 --daq-var device=enp0s10 -c /etc/snort/snort.conf -v
